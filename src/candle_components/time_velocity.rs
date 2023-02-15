@@ -8,7 +8,10 @@ use crate::{CandleComponent, CandleComponentUpdate, TakerTrade};
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct TimeVelocity {
     init: bool,
+
+    //open time
     init_time: i64,
+    //close time
     last_time: i64,
 }
 
@@ -45,5 +48,16 @@ impl<T: TakerTrade> CandleComponentUpdate<T> for TimeVelocity {
             self.init_time = trade.timestamp();
         }
         self.last_time = trade.timestamp();
+    }
+}
+
+impl TimeVelocity {
+    /// get open time
+    pub fn open_time(&self) -> i64 {
+        self.init_time
+    }
+    /// get close time
+    pub fn close_time(&self) -> i64 {
+        self.last_time
     }
 }

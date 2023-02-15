@@ -61,6 +61,18 @@ where
     }
 }
 
+impl<C, R, T> GenericAggregator<C, R, T>
+where
+    C: ModularCandle<T>,
+    R: AggregationRule<C, T>,
+    T: TakerTrade,
+{
+    /// get current candle
+    pub fn current(&mut self) -> &mut C {
+        &mut self.candle
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::{
